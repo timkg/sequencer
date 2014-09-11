@@ -1,7 +1,8 @@
 var extend = require('util-extend');
 
-function Node () {
+function Node (props) {
   this.children = [];
+  extend(this, props);
 }
 
 extend(Node.prototype, {
