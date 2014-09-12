@@ -69,3 +69,5 @@ assert.deepEqual(visitedNodes, [
   'trainer 2 - item 2',
   'trainer 2 - item 3'
 ]);
+
+console.log('ok');
