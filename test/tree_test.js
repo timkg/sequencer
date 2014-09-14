@@ -1,7 +1,7 @@
 var assert = require('assert');
 var Tree = require('../src/tree');
 var Node = require('../src/node');
-var Iterator = require('../src/preOrderIterator');
+var Iterator = require('../src/iterator/preOrderIterator');
 
 assert.ok(Tree);
 

@@ -1,7 +1,7 @@
 var assert = require('assert');
-var PreOrderIterator = require('../src/preOrderIterator');
+var LevelOrderIterator = require('../../src/iterator/levelOrderIterator');
 
-assert.ok(PreOrderIterator);
+assert.ok(LevelOrderIterator);
 
 var tree = {
   root: {
@@ -51,7 +51,7 @@ var tree = {
 };
 
 var visitedNodes = [];
-var iterator = new PreOrderIterator(function (node) {
+var iterator = new LevelOrderIterator(function (node) {
   visitedNodes.push(node.name);
 });
 
@@ -60,14 +60,14 @@ iterator.start(tree);
 assert.deepEqual(visitedNodes, [
   'lesson',
   'trainer 1',
-  'trainer 1 - item 1',
-  'trainer 1 - item 1 - gap 1',
-  'trainer 1 - item 2 - gap 2',
-  'trainer 1 - item 2',
   'trainer 2',
+  'trainer 1 - item 1',
+  'trainer 1 - item 2',
   'trainer 2 - item 1',
   'trainer 2 - item 2',
-  'trainer 2 - item 3'
+  'trainer 2 - item 3',
+  'trainer 1 - item 1 - gap 1',
+  'trainer 1 - item 2 - gap 2'
 ]);
 
 console.log('ok');

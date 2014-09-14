@@ -1,6 +1,6 @@
 var extend = require('util-extend');
-var LevelOrderIterator = require('../src/levelOrderIterator');
-var Node = require('../src/node');
+var LevelOrderIterator = require('./iterator/levelOrderIterator');
+var Node = require('./node');
 
 function Tree (json) {
   this.root = buildTreeNodesFromJson(json)[0];
