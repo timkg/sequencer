@@ -1,4 +1,4 @@
-var State = require('../src/state');
+var State = require('./state');
 var assert = require('assert');
 
 assert.ok(State);

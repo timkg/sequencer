@@ -1,7 +1,7 @@
 var extend = require('util-extend');
-var State = require('../src/state');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
+var State = require('./state');
 
 function StateMachine () {
   this.states = {

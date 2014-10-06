@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Node = require('../src/node');
+var Node = require('./node');
 
 assert.ok(Node);
 

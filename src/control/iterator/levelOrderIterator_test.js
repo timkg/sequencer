@@ -1,5 +1,5 @@
 var assert = require('assert');
-var LevelOrderIterator = require('../../src/iterator/levelOrderIterator');
+var LevelOrderIterator = require('./levelOrderIterator');
 
 assert.ok(LevelOrderIterator);
 

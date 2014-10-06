@@ -1,4 +1,4 @@
-var StateMachine = require('../src/stateMachine');
+var StateMachine = require('./stateMachine');
 var assert = require('assert');
 
 assert.ok(StateMachine);

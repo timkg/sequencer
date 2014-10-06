@@ -1,5 +1,5 @@
 var assert = require('assert');
-var PreOrderIterator = require('../../src/iterator/preOrderIterator');
+var PreOrderIterator = require('./preOrderIterator');
 
 assert.ok(PreOrderIterator);
 

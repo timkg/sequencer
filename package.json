@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "util-depends": "*"
+    "util-extend": "*"
+  },
+  "devDependencies": {
+    "mocha": "*"
   }
 }

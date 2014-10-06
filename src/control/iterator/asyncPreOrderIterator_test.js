@@ -1,9 +1,8 @@
 var assert = require('assert');
-var Tree = require('../src/tree');
-var Node = require('../src/node');
-var Iterator = require('../src/iterator/preOrderIterator');
+var AsyncPreOrderIterator = require('./asyncPreOrderIterator');
+var Tree = require('../tree');
 
-assert.ok(Tree);
+assert.ok(AsyncPreOrderIterator);
 
 var treeData = {
   root: {
@@ -55,24 +54,26 @@ var treeData = {
 var tree = new Tree(treeData);
 
 var visitedNodes = [];
-var iterator = new Iterator(function (node) {
-  assert(node.constructor === Node);
-  visitedNodes.push(node.name);
-});
-
+var iterator = new AsyncPreOrderIterator(onVisit, onEnd);
 iterator.start(tree);
 
-assert.deepEqual(visitedNodes, [
-  'lesson',
-  'trainer 1',
-  'trainer 1 - item 1',
-  'trainer 1 - item 1 - gap 1',
-  'trainer 1 - item 2 - gap 2',
-  'trainer 1 - item 2',
-  'trainer 2',
-  'trainer 2 - item 1',
-  'trainer 2 - item 2',
-  'trainer 2 - item 3'
-]);
+function onVisit(node, cb) {
+  visitedNodes.push(node.name);
+  process.nextTick(cb);
+}
 
-console.log('ok');
+function onEnd () {
+  assert.deepEqual(visitedNodes, [
+    'lesson',
+    'trainer 1',
+    'trainer 1 - item 1',
+    'trainer 1 - item 1 - gap 1',
+    'trainer 1 - item 2 - gap 2',
+    'trainer 1 - item 2',
+    'trainer 2',
+    'trainer 2 - item 1',
+    'trainer 2 - item 2',
+    'trainer 2 - item 3'
+  ]);
+  console.log('ok');
+}
