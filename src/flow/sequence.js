@@ -14,7 +14,8 @@ function Sequence () {
 
 /**
  * Add Step to the Sequence.
- * @param step {Step}
+ * Accepts callback function which is wrapped in a new Step instance.
+ * @param cb {function(fulfill, reject)}
  */
 Sequence.prototype.register = function (cb) {
   this.chain.push(new Step(cb));
@@ -27,12 +28,12 @@ Sequence.prototype.register = function (cb) {
  */
 Sequence.prototype.start = function (onComplete) {
   this.onComplete = onComplete || function () {};
-  this.next('sequence started');
+  this.next();
 };
 
 /**
  * Used internally for flow control.
- * Either starts current step or onComplete handler registered with Sequence.start().
+ * Either starts current step or calls onComplete handler registered with Sequence.start().
  */
 Sequence.prototype.next = function () {
   var step = this.chain[this.index];
