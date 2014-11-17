@@ -1,5 +1,7 @@
 'use strict';
 
+var Step = require('./step');
+
 /**
  * Series of potentially asynchronous Steps.
  * @constructor
@@ -7,14 +9,16 @@
 function Sequence () {
   this.chain = [];
   this.index = 0;
+  return this;
 }
 
 /**
  * Add Step to the Sequence.
  * @param step {Step}
  */
-Sequence.prototype.registerStep = function (step) {
-  this.chain.push(step);
+Sequence.prototype.register = function (cb) {
+  this.chain.push(new Step(cb));
+  return this;
 };
 
 /**
