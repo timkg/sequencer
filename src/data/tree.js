@@ -1,5 +1,5 @@
 var extend = require('util-extend');
-var LevelOrderIterator = require('./iterator/levelOrderIterator');
+var LevelOrderIterator = require('./traversal/levelOrderIterator');
 var Node = require('./node');
 
 function Tree (json) {

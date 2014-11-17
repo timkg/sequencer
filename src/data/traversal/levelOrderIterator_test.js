@@ -1,9 +1,10 @@
 var assert = require('assert');
-var PreOrderIterator = require('./preOrderIterator');
+var Tree = require('../tree');
+var LevelOrderIterator = require('./levelOrderIterator');
 
-assert.ok(PreOrderIterator);
+assert.ok(LevelOrderIterator);
 
-var tree = {
+var treeData = {
   root: {
     name: 'lesson',
     children: [
@@ -50,24 +51,27 @@ var tree = {
   }
 };
 
-var visitedNodes = [];
-var iterator = new PreOrderIterator(function (node) {
-  visitedNodes.push(node.name);
+describe('LevelOrder Tree Traversal Iterator', function () {
+  it('visits a tree\'s nodes in level order - same depth first', function () {
+    var tree = new Tree(treeData);
+    var visitedNodes = [];
+    var iterator = new LevelOrderIterator(function (node) {
+      visitedNodes.push(node.value.name);
+    });
+
+    iterator.start(tree);
+
+    assert.deepEqual(visitedNodes, [
+      'lesson',
+      'trainer 1',
+      'trainer 2',
+      'trainer 1 - item 1',
+      'trainer 1 - item 2',
+      'trainer 2 - item 1',
+      'trainer 2 - item 2',
+      'trainer 2 - item 3',
+      'trainer 1 - item 1 - gap 1',
+      'trainer 1 - item 2 - gap 2'
+    ]);
+  })
 });
-
-iterator.start(tree);
-
-assert.deepEqual(visitedNodes, [
-  'lesson',
-  'trainer 1',
-  'trainer 1 - item 1',
-  'trainer 1 - item 1 - gap 1',
-  'trainer 1 - item 2 - gap 2',
-  'trainer 1 - item 2',
-  'trainer 2',
-  'trainer 2 - item 1',
-  'trainer 2 - item 2',
-  'trainer 2 - item 3'
-]);
-
-console.log('ok');

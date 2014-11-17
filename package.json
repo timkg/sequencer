@@ -4,5 +4,8 @@
   },
   "devDependencies": {
     "mocha": "*"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha \"src/**/*_test.js\""
   }
 }
