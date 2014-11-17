@@ -51,8 +51,6 @@ var treeData = {
   }
 };
 
-
-
 describe('Async PreOrder Tree Traversal Iterator', function () {
   it('visits a tree\'s nodes in pre-order, allowing for async operations on visit', function (done) {
     var tree = new Tree(treeData);
