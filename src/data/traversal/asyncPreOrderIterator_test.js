@@ -52,7 +52,7 @@ var treeData = {
 };
 
 describe('Async PreOrder Tree Traversal Iterator', function () {
-  it('visits a tree\'s nodes in pre-order, allowing for async operations on visit', function (done) {
+  it('asynchronously visits a tree\'s nodes in pre-order - depth left first', function (done) {
     var tree = new Tree(treeData);
 
     var visitedNodes = [];
