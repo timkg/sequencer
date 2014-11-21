@@ -17,11 +17,15 @@ EventEmitter.call(this);
 extend(StateMachine.prototype, (function () {
   var startState, transitionEvent, nextState;
 
-  function from (stateName) {
+  function from (stateName, leaveCb) {
     if (!this.states[stateName]) {
       this.states[stateName] = new State({
         name: stateName
       });
+    }
+
+    if (typeof leaveCb === 'function') {
+      this.states[stateName].on('leave', leaveCb);
     }
 
     startState = this.states[stateName];
@@ -35,11 +39,15 @@ extend(StateMachine.prototype, (function () {
     return this;
   }
 
-  function to (stateName) {
+  function to (stateName, enterCb) {
     if (!this.states[stateName]) {
       this.states[stateName] = new State({
         name: stateName
       });
+    }
+
+    if (typeof enterCb === 'function') {
+      this.states[stateName].on('enter', enterCb);
     }
 
     nextState = this.states[stateName];

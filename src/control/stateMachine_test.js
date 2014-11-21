@@ -1,37 +1,76 @@
 var StateMachine = require('./stateMachine');
 var assert = require('assert');
 
-assert.ok(StateMachine);
+describe('StateMachine', function () {
+  it('starts in unstarted state', function () {
+    var stateMachine = new StateMachine();
+    assert.equal(stateMachine.currentState.name, 'unstarted');
+  });
+  it('registers state transitions', function () {
+    var stateMachine = new StateMachine();
+    stateMachine
+      .from('unstarted')
+      .on('start')
+      .to('started');
 
-var stateMachine = new StateMachine();
+    assert(stateMachine.states.started);
+  });
+  it('executes state transitions when the correct event is provided', function () {
+    var stateMachine = new StateMachine();
 
-stateMachine
-  .from('unstarted')
-  .on('play')
-  .to('playing');
+    stateMachine
+      .from('unstarted')
+      .on('start')
+      .to('started');
 
-stateMachine
-  .from('playing')
-  .on('pause')
-  .to('paused');
+    stateMachine.emit('start');
 
-stateMachine
-  .from('paused')
-  .on('play')
-  .to('playing');
+    assert.equal(stateMachine.currentState.name, 'started');
+  });
+  it('does not execute state transitions when the event does not match current state', function () {
+    var stateMachine = new StateMachine();
 
-assert.equal(stateMachine.currentState.name, 'unstarted');
+    stateMachine
+      .from('unstarted')
+      .on('start')
+      .to('started');
 
-stateMachine.emit('pause');
-assert.equal(stateMachine.currentState.name, 'unstarted');
+    stateMachine
+      .from('started')
+      .on('stop')
+      .to('stopped');
 
-stateMachine.emit('play');
-assert.equal(stateMachine.currentState.name, 'playing');
+    assert.equal(stateMachine.currentState.name, 'unstarted');
 
-stateMachine.emit('pause');
-assert.equal(stateMachine.currentState.name, 'paused');
+    stateMachine.emit('stop');
 
-stateMachine.emit('play');
-assert.equal(stateMachine.currentState.name, 'playing');
+    assert.equal(stateMachine.currentState.name, 'unstarted');
+  });
+  it('attaches leave callbacks with from', function () {
+    var stateMachine = new StateMachine();
+    var flag = false;
 
-console.log('ok');
+    stateMachine
+      .from('unstarted', function () { flag = true; })
+      .on('start')
+      .to('started');
+
+    stateMachine.emit('start');
+
+    assert.equal(flag, true);
+  });
+  it('attaches enter callbacks with to', function () {
+    var stateMachine = new StateMachine();
+    var flag = false;
+
+    stateMachine
+      .from('unstarted')
+      .on('start')
+      .to('started', function () { flag = true; });
+
+    stateMachine.emit('start');
+
+    assert.equal(flag, true);
+  });
+});
+

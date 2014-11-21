@@ -7,18 +7,18 @@ function State (props) {
   EventEmitter.call(this);
 
   this.active = false;
-
-  this.on('enter', function () {
-    this.active = true;
-    console.log('enter:' + this.name);
-  });
-
-  this.on('leave', function () {
-    this.active = false;
-    console.log('leave:' + this.name);
-  });
 }
 
 util.inherits(State, EventEmitter);
+
+State.prototype.enter = function () {
+  this.active = true;
+  this.emit('enter');
+};
+
+State.prototype.leave = function () {
+  this.active = false;
+  this.emit('leave');
+};
 
 module.exports = State;
